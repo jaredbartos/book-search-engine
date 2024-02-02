@@ -12,6 +12,8 @@ const SignupForm = () => {
   const [validated] = useState(false);
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
+  // Declare useMutation variables for user creation
+  const [addUser, { loading, data, error }] = useMutation(ADD_USER);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -26,9 +28,7 @@ const SignupForm = () => {
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
-    }
-
-    const [addUser, { loading, data, error }] = useMutation(ADD_USER);
+    } 
 
     try {
       const { data } = await addUser({
