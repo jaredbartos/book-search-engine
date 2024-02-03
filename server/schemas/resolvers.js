@@ -9,7 +9,7 @@ const resolvers = {
         return user;
       }
 
-      throw new AuthenticationError('You need to be logged in!');
+      throw AuthenticationError;
     }
   },
   Mutation: {
@@ -45,14 +45,14 @@ const resolvers = {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { savedBooks: args } },
+          { $addToSet: { savedBooks: args.input } },
           { new: true, runValidators: true }
         );
 
         return updatedUser;
       }
 
-      throw new AuthenticationError('You need to be logged in!');
+      throw AuthenticationError;
     },
     removeBook: async (parent, { bookId }, context) => {
       if (context.user) {
@@ -65,7 +65,7 @@ const resolvers = {
         return updatedUser;
       }
 
-      throw new AuthenticationError('You need to be logged in!');
+      throw AuthenticationError;
     }
   }
 }
